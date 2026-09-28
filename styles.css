@@ -99,6 +99,7 @@ button{
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: 0.9rem;
 }
 
 button:hover, .bookAddBtn:hover{
@@ -129,4 +130,10 @@ svg{
 
 .secondaryText{
     color: var(--text-secondary);
+}
+
+.remove{
+    background-color: oklch(88.5% 0.062 18.334);
+    color: oklch(63.7% 0.237 25.331);
+    fill : oklch(63.7% 0.237 25.331);
 }
