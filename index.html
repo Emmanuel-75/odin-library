@@ -20,44 +20,73 @@
       </p>
     </header>
     <div class="bookAddBtn">New book +</div>
-    <main>
-      
-    </main>
+    <main></main>
+    <footer>
+      copyright &copy; DevManolis
+    </footer>
+    <dialog closedby="any">
+      <form action="" class="post-creation-form">
+        <h1>Fill in the below details to add a new book</h1>
+        <label for="bTitle">
+          Book title
+          <input type="text" id="bTitle" required />
+        </label>
+        <label for="bAuthor">
+          Book author
+          <input type="text" id="bAuthor" required />
+        </label>
+        <label for="bAuthor">
+          Book pages
+          <input type="number" id="bPages" min="10" required />
+        </label>
+        <div>
+          <label for="bookUnread">
+            <input type="radio" name="readStat" id="bookUnread" value="unread" required>
+            <span>Unread</span>
+          </label>
+          <label for="bookRead">
+            <input type="radio" name="readStat" id="bookRead" value="read">
+            read
+          </label>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </dialog>
     <template class="bookTemplate">
-        <section class="book">
-          <p class="bookTitle"></p>
-          <div class="firstDiv">
-            <p class="bookAuthor">
-              <span class="secondaryText">Author :</span>
-              <span class="primaryText"></span>
-            </p>
-            <p class="bookPages">
-              <span class="primaryText"></span>
-              <span class="secondaryText">pages</span>
-            </p>
-          </div>
-          <p class="readStat"></p>
-          <div class="secondDiv">
-            <button class="readBtn">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>circle</title>
-                <path
-                  d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-                />
-              </svg>
-              <p>Mark as <span></span></p>
-            </button>
-            <button class="remove">
-              Remove<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>close</title>
-                <path
-                  d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-                />
-              </svg>
-            </button>
-          </div>
-        </section>
-      </template>
+      <section class="book">
+        <p class="bookTitle"></p>
+        <div class="firstDiv">
+          <p class="bookAuthor">
+            <span class="secondaryText">Author :</span>
+            <span class="primaryText"></span>
+          </p>
+          <p class="bookPages">
+            <span class="primaryText"></span>
+            <span class="secondaryText">pages</span>
+          </p>
+        </div>
+        <p class="readStat"></p>
+        <div class="secondDiv">
+          <button class="readBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>circle</title>
+              <path
+                d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+              />
+            </svg>
+            <p>Mark as <span></span></p>
+          </button>
+          <button class="remove">
+            Remove<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>close</title>
+              <path
+                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
+    </template>
     <script src="script.js"></script>
   </body>
 </html>
