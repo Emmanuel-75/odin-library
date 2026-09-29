@@ -13,7 +13,7 @@ function Book(title, author, pages, readStat) {
 }
 
 Book.prototype.changeReadStatus = function () {
-  this.readStat = !this.readStat;
+  this.readStat = this.readStat == 'read' ? 'unread' : 'read';
 };
 
 function addBookToLibrary(title, author, pages, readStat) {
@@ -111,3 +111,15 @@ mainSection.addEventListener("click", e => {
   }
   DisplayBooks(books);
 });
+
+mainSection.addEventListener('click', e => {
+  if (!e.target.closest('button').classList.contains('readBtn')) return;
+  const container = e.target.closest('.book');
+  for (let index = 0; index < books.length; index++) {
+    if (books[index].id === container.dataset.bookId) {
+      books[index].changeReadStatus();
+      break;
+    }
+  }
+  DisplayBooks(books);
+})
