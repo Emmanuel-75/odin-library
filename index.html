@@ -39,14 +39,15 @@
           Book pages
           <input type="number" id="bPages" min="10" required />
         </label>
+        <p>Have you read it?</p>
         <div>
           <label for="bookUnread">
-            <input type="radio" name="readStat" id="bookUnread" value="unread" required>
-            <span>Unread</span>
+            <input type="radio" name="readStat" id="bookUnread" value="no" required>
+            <span>No</span>
           </label>
           <label for="bookRead">
-            <input type="radio" name="readStat" id="bookRead" value="read">
-            read
+            <input type="radio" name="readStat" id="bookRead" value="yes">
+            Yes
           </label>
         </div>
         <button type="submit">Submit</button>

@@ -1,16 +1,20 @@
 const books = [];
 
 const mainSection = document.querySelector("main");
-const dialog = document.querySelector('dialog');
-const dialogForm = dialog.querySelector('form');
+const dialog = document.querySelector("dialog");
+const dialogForm = dialog.querySelector("form");
 
 function Book(title, author, pages, readStat) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.readStat = readStat;
+  this.readStat = readStat ? "read" : "unread";
   this.id = crypto.randomUUID();
 }
+
+Book.prototype.changeReadStatus = function () {
+  this.readStat = !this.readStat;
+};
 
 function addBookToLibrary(title, author, pages, readStat) {
   books.push(new Book(title, author, pages, readStat));
@@ -45,12 +49,14 @@ function DisplayBooks(inventory) {
   for (let book of inventory) {
     const template = document.querySelector("template").content.cloneNode(true);
     template.querySelector(".bookTitle").textContent = book.title;
-    template.querySelector(".bookAuthor .primaryText").textContent = book.author;
+    template.querySelector(".bookAuthor .primaryText").textContent =
+      book.author;
     template.querySelector(".bookPages .primaryText").textContent = book.pages;
     template.querySelector(".readStat").textContent = book.readStat;
-    template.querySelector('section').dataset.bookId = book.id;
+    template.querySelector("section").dataset.bookId = book.id;
     const markBtn = template.querySelector(".readBtn");
-    markBtn.querySelector("span").textContent = book.readStat == "read" ? 'unread' : 'read';
+    markBtn.querySelector("span").textContent =
+      book.readStat == "read" ? "unread" : "read";
     if (book.readStat == "read") {
       template.querySelector(".readStat").style.color =
         "oklch(72.3% 0.219 149.579)";
@@ -72,17 +78,36 @@ function DisplayBooks(inventory) {
 
 DisplayBooks(books);
 
-document.querySelector('.bookAddBtn').addEventListener("click", () => dialog.showModal());
+document
+  .querySelector(".bookAddBtn")
+  .addEventListener("click", () => dialog.showModal());
 
-dialogForm.addEventListener('submit', e =>{
+dialogForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const bTitle = dialogForm.querySelector('#bTitle');
-  const bAuthor = dialogForm.querySelector('#bAuthor');
-  const bPages = dialogForm.querySelector('#bPages');
+  const bTitle = dialogForm.querySelector("#bTitle");
+  const bAuthor = dialogForm.querySelector("#bAuthor");
+  const bPages = dialogForm.querySelector("#bPages");
   const bReadStat = dialogForm.querySelector('input[name="readStat"]:checked');
-  addBookToLibrary(bTitle.value, bAuthor.value, bPages.value, bReadStat.value);
+  addBookToLibrary(
+    bTitle.value,
+    bAuthor.value,
+    bPages.value,
+    bReadStat.value == "yes" ? true : false,
+  );
   dialog.close();
   DisplayBooks(books);
-  bTitle.value = bAuthor.value = bPages.value = '';
+  bTitle.value = bAuthor.value = bPages.value = "";
   bReadStat.checked = false;
-})
+});
+
+mainSection.addEventListener("click", e => {
+  if (!e.target.classList.contains('remove')) return;
+  const container = e.target.closest(".book");
+  for (let index = 0; index < books.length; index++) {
+    if (books[index].id === container.dataset.bookId) {
+      books.splice(index, 1);
+      break;
+    }
+  }
+  DisplayBooks(books);
+});
