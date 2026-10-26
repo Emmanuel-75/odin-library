@@ -4,17 +4,24 @@ const mainSection = document.querySelector("main");
 const dialog = document.querySelector("dialog");
 const dialogForm = dialog.querySelector("form");
 
-function Book(title, author, pages, readStat) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.readStat = readStat ? "read" : "unread";
-  this.id = crypto.randomUUID();
-}
+class Book{
+  #id = crypto.randomUUID();
 
-Book.prototype.changeReadStatus = function () {
-  this.readStat = this.readStat == 'read' ? 'unread' : 'read';
-};
+  constructor(title, author, pages, readStat){
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readStat = readStat ? 'read' : 'unread';
+  }
+
+  changeReadStatus(){
+    this.readStat = this.readStat == 'read' ? 'unread' : 'read';
+  }
+
+  get idGetter(){
+    return this.#id;
+  }
+}
 
 function addBookToLibrary(title, author, pages, readStat) {
   books.push(new Book(title, author, pages, readStat));
@@ -53,7 +60,7 @@ function DisplayBooks(inventory) {
       book.author;
     template.querySelector(".bookPages .primaryText").textContent = book.pages;
     template.querySelector(".readStat").textContent = book.readStat;
-    template.querySelector("section").dataset.bookId = book.id;
+    template.querySelector("section").dataset.bookId = book.idGetter;
     const markBtn = template.querySelector(".readBtn");
     markBtn.querySelector("span").textContent =
       book.readStat == "read" ? "unread" : "read";
@@ -104,7 +111,7 @@ mainSection.addEventListener("click", e => {
   if (!e.target.classList.contains('remove')) return;
   const container = e.target.closest(".book");
   for (let index = 0; index < books.length; index++) {
-    if (books[index].id === container.dataset.bookId) {
+    if (books[index].idGetter === container.dataset.bookId) {
       books.splice(index, 1);
       break;
     }
@@ -116,7 +123,7 @@ mainSection.addEventListener('click', e => {
   if (!e.target.closest('button').classList.contains('readBtn')) return;
   const container = e.target.closest('.book');
   for (let index = 0; index < books.length; index++) {
-    if (books[index].id === container.dataset.bookId) {
+    if (books[index].idGetter === container.dataset.bookId) {
       books[index].changeReadStatus();
       break;
     }
